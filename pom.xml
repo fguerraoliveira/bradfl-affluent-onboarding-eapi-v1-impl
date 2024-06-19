@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
+		<artifactId>brad-parent-pom</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
+	<artifactId>brad-affluent-onboarding-eapi-v1-impl</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>mule-application</packaging>
+
+	<name>brad-affluent-onboarding-eapi-v1-impl</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<api.groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</api.groupId>
+		<api.common.core.version>1.0.0</api.common.core.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>4.2.0</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-http-connector</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>${api.groupId}</groupId>
+			<artifactId>commons-core-app</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-apikit-module</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.modules</groupId>
+			<artifactId>mule-secure-configuration-property-module</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
+			<artifactId>affluent-onboarding-experience-api</artifactId>
+			<version>1.0.14</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases Repository</name>
+			<url>https://repository.mulesoft.org/releases/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases Repository</name>
+			<layout>default</layout>
+			<url>https://repository.mulesoft.org/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>
