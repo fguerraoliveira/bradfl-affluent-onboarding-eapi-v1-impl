@@ -31,22 +31,39 @@ payload]]]></http:body>
 			<http:uri-params><![CDATA[#[vars.requestConfig.uriParams]]]></http:uri-params>
 			<http:query-params><![CDATA[#[vars.requestConfig.queryParams]]]></http:query-params>
 		</http:request>
+				<ee:transform doc:name="http response" doc:id="b07ad1be-85f1-4d86-ad20-9ec2b0ef6c62" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	httpResponse: payload,
+	httpStatusCode: attributes.statusCode,
+	httpReasonPhrase: attributes.reasonPhrase
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
 				<error-handler >
 					<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="9f5bce3d-db82-45c7-84e4-ed1e9c67be2c" type="${processApi.affluentManagement.notTransientErrors}">
 						<logger level="ERROR" doc:name="Logger"
 							doc:id="0491018d-705a-4777-8c69-c45bb2a58b6e"
 							message="Failed to request external service. Will not retry. Error: #[error]" />
-						<ee:transform doc:name="payload, httpStatus" doc:id="16d87085-4160-4b92-b6de-ae892850ea62" >
+						<ee:transform doc:name="error response" doc:id="f7cb1ac3-9be0-4d39-93a7-07206446fb8e" >
 							<ee:message >
-								<ee:set-payload ><![CDATA[error.errorMessage.payload default error]]></ee:set-payload>
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	httpResponse: error.errorMessage.payload default error,
+	httpStatusCode: error.errorMessage.attributes.statusCode,
+	httpReasonPhrase: error.errorMessage.attributes.reasonPhrase
+}]]></ee:set-payload>
 							</ee:message>
-							<ee:variables >
-								<ee:set-variable variableName="httpStatus" ><![CDATA[error.errorMessage.payload.errorCode]]></ee:set-variable>
-							</ee:variables>
 						</ee:transform>
 					</on-error-continue>
 					<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="96ffdd16-9c87-4793-8048-ce857bae068b" >
 						<logger level="ERROR" doc:name="Logger" doc:id="b2f9014e-e804-4efb-be3b-2dc3b34c34fe" message="Failed to request external service. Will retry. Error: #[error]"/>
+						<raise-error doc:name="Raise error" doc:id="4297ac4e-bf82-48b3-bc6f-2109db5f3c3f" type="AF:INTERNAL_SERVER_ERROR" description="Failed to call Affluent Management PAPI" />
 					</on-error-propagate>
 				</error-handler>
 		</try>
