@@ -1,0 +1,25 @@
+api:
+  id: ""
+  
+processApi:
+  affluentManagement:
+    host: "brad-affluent-management-papi-v1-dev"
+    port: ""
+    path: "/tenants/{tentantId}/onboardings"
+    auth:
+      enabled: "false"
+      clientIdHeaderName: "clientId"
+      clientSecretHeaderName: "clientSecret"
+    connectionIdleTimeout: "180000"
+    connectionTimeout: "10000"
+    responseTimeout: "50000"
+    reconnection:
+      frequency: "1000"
+      attempts: "2"
+    operations:
+      createCustomerProductOnboarding:
+        method: "POST"
+        notTransientErrors: "HTTP:BAD_REQUEST, HTTP:CLIENT_SECURITY, HTTP:FORBIDDEN, HTTP:METHOD_NOT_ALLOWED, HTTP:NOT_ACCEPTABLE, HTTP:NOT_FOUND, HTTP:PARSING, HTTP:SECURITY, HTTP:UNAUTHORIZED, HTTP:UNSUPPORTED_MEDIA_TYPE, HTTP:INTERNAL_SERVER_ERROR, HTTP:TIMEOUT"
+        maxRetries: "0"
+        millisBetweenRetries: "1000"
+      

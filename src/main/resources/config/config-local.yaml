@@ -1,0 +1,69 @@
+api:
+  id: ""
+
+http:
+  host: "0.0.0.0"
+  port: "8088"
+  
+processApi:
+  affluentManagement:
+    protocol: "HTTP"
+    basePath: "/tenants/{tenantId}/onboardings"
+    host: "localhost"
+    port: "8087"
+    connectionIdleTimeout: "180000"
+    connectionTimeout: "10000"
+    responseTimeout: "50000"
+    reconnection:
+      frequency: "1000"
+      attempts: "2"
+    auth:
+      enabled: "false"
+      clientId:
+        headerName: "clientId"
+        value: "123"
+      clientSecret:
+        headerName: "clientSecret"
+        value: "456"
+    notTransientErrors: "HTTP:BAD_REQUEST, HTTP:CLIENT_SECURITY, HTTP:FORBIDDEN, HTTP:METHOD_NOT_ALLOWED, HTTP:NOT_ACCEPTABLE, HTTP:NOT_FOUND, HTTP:PARSING, HTTP:SECURITY, HTTP:UNAUTHORIZED, HTTP:UNSUPPORTED_MEDIA_TYPE, HTTP:INTERNAL_SERVER_ERROR"
+    operations:
+      createCustomerProductOnboarding:
+        path: ""
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+      sendOwnershipConfOTP:
+        path: "/{id}/.send-ownership-confirmation-otp"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+      validateOwnershipConfOTP:
+        path: "/{id}/.validate-ownership-confirmation-otp"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+      requestSignature:
+        path: "/{id}/.request-signature"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+      validateSignature:
+        path: "/{id}/.validate-signature"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+
+##Sobrescreve as configs do .operations          
+api-call:
+  postOnboarding:
+    affluentManagement: 
+      createCustomerProductOnboarding:
+        maxRetries: "0"
+        millisBetweenRetries: "1000"  
+  postSendOwnershipConfOTP:
+    affluentManagement: 
+      sendOwnershipConfOTP:
+        maxRetries: "0"
+        millisBetweenRetries: "1000" 
+        validationDurationInSec: "600"
+        validationMarginInSec: "60"
