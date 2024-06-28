@@ -3,23 +3,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
-		<artifactId>brad-parent-pom</artifactId>
+		<artifactId>bradfl-parent-pom</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
 	<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
-	<artifactId>brad-affluent-onboarding-eapi-v1-impl</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>bradfl-affluent-onboarding-eapi-v1-impl</artifactId>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
-	<name>brad-affluent-onboarding-eapi-v1-impl</name>
+	<name>bradfl-affluent-onboarding-eapi-v1-impl</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<api.groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</api.groupId>
-		<api.common.core.version>1.0.0</api.common.core.version>
 	</properties>
 
 	<build>
@@ -33,6 +31,9 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<extensions>true</extensions>
 				<version>4.2.0</version>
+				<configuration>
+					<classifier>mule-application</classifier>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -45,7 +46,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${api.groupId}</groupId>
-			<artifactId>commons-core-app</artifactId>
+			<artifactId>bradfl-commons-core-app</artifactId>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
