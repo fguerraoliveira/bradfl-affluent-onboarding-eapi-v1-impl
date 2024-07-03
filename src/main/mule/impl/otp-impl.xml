@@ -68,4 +68,67 @@ payload.httpResponse]]></ee:set-payload>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="post-validate-ownership-confirmation-impl-subflow" doc:id="cd4927d2-c892-4dc9-a3b8-56185a32b724" >
+		<ee:transform doc:name="Request Config" doc:id="18e2fff9-f8f0-4df1-9a21-5bf444cd728f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+var baseApiCall = 'api-call.postValidateOwnershipConfirmation.affluentManagement.postValidateOwnershipConfirmation.'
+---
+{
+	"otpValue": vars.originalPayload.otpValue,
+	"contactPointPhone": {
+        "contactPointType": [
+            "ContactPointPhone"
+          ],
+        "id": "",
+        "activeFromDate": "2000-01-01", //its required in papi, but not used
+        "telephoneNumber": vars.originalPayload.phoneNumber,
+        "areaCode": vars.originalPayload.phoneAreaCode,
+        "phoneCountryCode": vars.originalPayload.phoneCountryCode
+    }
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.affluentManagement."
+var operation = "validateOwnershipConfOTP."
+var apiCallName = ""
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantUuid,
+		"id": vars.onboardingUuid
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="affluentManagement-http-request" doc:id="b59175bb-15ba-4638-a8c9-764c8e8dabd1" name="affluentManagementPapi-http-request" />
+		<ee:transform doc:name="httpStatus, response" doc:id="8124baf8-a948-46df-809f-b10008dcb5e7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
 </mule>

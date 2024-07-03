@@ -93,3 +93,8 @@ api-call:
         millisBetweenRetries: "1000" 
         validationDurationInSec: "600"
         validationMarginInSec: "60"
+  postValidateOwnershipConfirmation:
+    affluentManagement:
+      postValidateOwnershipConfirmation:
+        validationDurationInSec: "600"
+        validationMarginInSec: "60"        
