@@ -16,11 +16,10 @@ var baseApiCall = 'api-call.postSendOwnershipConfOTP.affluentManagement.sendOwne
         "contactPointType": [
             "ContactPointPhone"
           ],
-        "id": null,
-        "activeFromDate": null,
-        "telephoneNumber": vars.originalPayload.telephoneNumber,
-        "areaCode": vars.originalPayload.areaCode,
-        "phoneCountryCode": vars.originalPayload.phoneCountryCode
+        "phoneCountryCode": vars.originalPayload.phoneCountryCode,
+        "areaCode": vars.originalPayload.phoneAreCode,
+        "telephoneNumber": vars.originalPayload.phoneNumber
+
     },
 	"validationDurationInSec": Mule::p(baseApiCall ++ 'validationDurationInSec'),
 	"validationMarginInSec": Mule::p(baseApiCall ++ 'validationMarginInSec')

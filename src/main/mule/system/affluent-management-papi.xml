@@ -10,7 +10,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="affluentManagementPapi-http-request"
 		doc:id="4bf1b7dd-36af-42ff-b8c3-49f851ed73b5">
-		<logger level="INFO" doc:name="Logger" doc:id="7833dbf5-a902-498f-8fb2-a914ee4f2ffc" message="Calling API with request config: [#[vars.requestConfig]]" />
+		<try doc:name="Try" doc:id="4ca82375-e55a-4132-b33f-1fef411997b8" >
+			<logger level="INFO" doc:name="Logger" doc:id="7833dbf5-a902-498f-8fb2-a914ee4f2ffc" message="Calling API with request config: [#[vars.requestConfig]]" />
+
 		<until-successful
 			maxRetries="#[vars.requestConfig.maxRetries default 0]"
 			doc:name="Until Successful"
@@ -68,5 +70,12 @@ output application/java
 				</error-handler>
 		</try>
 		</until-successful>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="08602423-d013-4ae5-8789-fab165f911af" >
+					<logger level="ERROR" doc:name="Logger" doc:id="6c520869-0539-499c-bf67-1bd5a9045e4f" message="Failed to request external service. Will retry. Error: #[error]" />
+					<raise-error doc:name="Raise error" doc:id="10c05938-6e2e-4418-970b-208a1d093ebb" type="AF:INTERNAL_SERVER_ERROR" description="Failed to call Affluent Management PAPI" />
+				</on-error-propagate>
+			</error-handler>
+				</try>
 	</sub-flow>
 </mule>

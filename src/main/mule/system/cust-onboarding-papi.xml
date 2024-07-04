@@ -10,7 +10,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="customerProductsOnboardingPapi-http-request"
 		doc:id="4bf1b7dd-36af-42ff-b8c3-49f851ed73b5">
-		<logger level="INFO" doc:name="Logger" doc:id="7833dbf5-a902-498f-8fb2-a914ee4f2ffc" message="Calling API with request config: [#[vars.requestConfig]]" />
+		<try doc:name="Try" doc:id="50a26970-ef51-453e-999a-03be2832e109" >
+			<logger level="INFO" doc:name="Logger" doc:id="7833dbf5-a902-498f-8fb2-a914ee4f2ffc" message="Calling API with request config: [#[vars.requestConfig]]" />
+
 		<until-successful
 			maxRetries="#[vars.requestConfig.maxRetries default 0]"
 			doc:name="Until Successful"
@@ -44,7 +46,7 @@ output application/java
 					</ee:message>
 				</ee:transform>
 				<error-handler >
-					<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="9f5bce3d-db82-45c7-84e4-ed1e9c67be2c" type="${processApi.affluentManagement.notTransientErrors}">
+					<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="9f5bce3d-db82-45c7-84e4-ed1e9c67be2c" type="${processApi.customerProductsOnboarding.notTransientErrors}">
 						<logger level="ERROR" doc:name="Logger"
 							doc:id="0491018d-705a-4777-8c69-c45bb2a58b6e"
 							message="Failed to request external service. Will not retry. Error: #[error]" />
@@ -63,10 +65,17 @@ output application/java
 					</on-error-continue>
 					<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="96ffdd16-9c87-4793-8048-ce857bae068b" >
 						<logger level="ERROR" doc:name="Logger" doc:id="b2f9014e-e804-4efb-be3b-2dc3b34c34fe" message="Failed to request external service. Will retry. Error: #[error]"/>
-						<raise-error doc:name="Raise error" doc:id="4297ac4e-bf82-48b3-bc6f-2109db5f3c3f" type="AF:INTERNAL_SERVER_ERROR" description="Failed to call Affluent Management PAPI" />
+							<raise-error doc:name="Raise error" doc:id="e2731259-8a41-4e56-9cb6-8aed18490d90" type="CPO:INTERNAL_SERVER_ERROR" description="Failed to call Customer Products Onboarding PAPI" />
 					</on-error-propagate>
 				</error-handler>
 		</try>
 		</until-successful>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="2f6dae11-95be-4f9c-8eb1-cb42aae539da" >
+					<logger level="ERROR" doc:name="Logger" doc:id="cba43853-4133-4c29-bd39-c941b2fc9993" message="Failed to request external service. Will retry. Error: #[error]" />
+					<raise-error doc:name="Raise error" doc:id="5bc02d94-9500-4b03-a0c0-1e684b779606" type="CPO:INTERNAL_SERVER_ERROR" description="Failed to call Customer Products Onboarding PAPI" />
+				</on-error-propagate>
+			</error-handler>
+				</try>
 	</sub-flow>
 </mule>
