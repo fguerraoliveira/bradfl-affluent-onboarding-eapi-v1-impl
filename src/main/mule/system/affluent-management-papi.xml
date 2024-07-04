@@ -37,7 +37,7 @@ payload]]]></http:body>
 output application/java
 ---
 {
-	httpResponse: payload,
+	httpResponse: (if (!isEmpty(payload.^raw)) payload else {}),
 	httpStatusCode: attributes.statusCode,
 	httpReasonPhrase: attributes.reasonPhrase
 }]]></ee:set-payload>
