@@ -3,14 +3,14 @@ api:
 
 http:
   host: "0.0.0.0"
-  port: "8088"
+  port: "8080"
   
 processApi:
   customerProductsOnboarding:
     protocol: "HTTP"
-    basePath: "/tenants/{tenantId}/onboardings"
+    basePath: "/api/tenants/{tenantId}/onboardings"
     host: "localhost"
-    port: "8082"
+    port: "8081"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"
     responseTimeout: "50000"

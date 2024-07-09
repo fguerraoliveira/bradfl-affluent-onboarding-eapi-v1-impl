@@ -19,7 +19,7 @@
 	</http:listener-config>
 	<apikit:config
 		name="affluent-onboarding-experience-api-config"
-		api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.16:raml:zip:affluent-onboarding-experience-api.raml"
+		api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.17:raml:zip:affluent-onboarding-experience-api.raml"
 		outboundHeadersMapName="outboundHeaders"
 		httpStatusVarName="httpStatus" />
 	<!-- <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" 
