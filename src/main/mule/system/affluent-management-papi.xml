@@ -46,13 +46,13 @@ output application/java
 					</ee:message>
 				</ee:transform>
 				<error-handler >
-					<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="9f5bce3d-db82-45c7-84e4-ed1e9c67be2c" type="${processApi.affluentManagement.notTransientErrors}">
-						<logger level="ERROR" doc:name="Logger"
-							doc:id="0491018d-705a-4777-8c69-c45bb2a58b6e"
-							message="Failed to request external service. Will not retry. Error: #[error]" />
-						<ee:transform doc:name="error response" doc:id="f7cb1ac3-9be0-4d39-93a7-07206446fb8e" >
-							<ee:message >
-								<ee:set-payload ><![CDATA[%dw 2.0
+						<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="c0b247d1-6e00-4bb2-b646-b8050a53fc73" type="ANY" >
+							<choice doc:name="Choice" doc:id="241a84b3-cf83-40ee-a612-7ac2b99971fb" >
+								<when expression="#[!isEmpty(error.errorMessage.attributes.statusCode) and (Mule::p('processApi.affluentManagement.notTransientErrorCodes') contains error.errorMessage.attributes.statusCode)]" >
+									<logger level="ERROR" doc:name="Logger" doc:id="762c10d0-f061-4ea8-92c2-841dcc036fc5" message="Failed to request external service. Will not retry. Error: #[error]" />
+									<ee:transform doc:name="error response" doc:id="8c4f992a-f0c0-405a-8965-7fb897cdbf4a" >
+										<ee:message >
+											<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
 ---
 {
@@ -60,13 +60,15 @@ output application/java
 	httpStatusCode: error.errorMessage.attributes.statusCode,
 	httpReasonPhrase: error.errorMessage.attributes.reasonPhrase
 }]]></ee:set-payload>
-							</ee:message>
-						</ee:transform>
-					</on-error-continue>
-					<on-error-propagate enableNotifications="true" logException="false" doc:name="On Error Propagate" doc:id="96ffdd16-9c87-4793-8048-ce857bae068b" >
-						<logger level="ERROR" doc:name="Logger" doc:id="b2f9014e-e804-4efb-be3b-2dc3b34c34fe" message="Failed to request external service. Will retry. Error: #[error]"/>
-						<raise-error doc:name="Raise error" doc:id="4297ac4e-bf82-48b3-bc6f-2109db5f3c3f" type="AF:INTERNAL_SERVER_ERROR" description="Failed to call Affluent Management PAPI" />
-					</on-error-propagate>
+										</ee:message>
+									</ee:transform>
+								</when>
+								<otherwise >
+									<logger level="ERROR" doc:name="Logger" doc:id="b5ecb931-29de-45ba-a8a4-b35b43f0f8e6" message="Failed to request external service. Will retry. Error: #[error]" />
+									<raise-error doc:name="Raise error" doc:id="a1eddb14-b9a5-47c0-9d0c-f44e11a2d1eb" type="AF:INTERNAL_SERVER_ERROR" description="Failed to call Affluent Management PAPI" />
+								</otherwise>
+							</choice>
+						</on-error-continue>
 				</error-handler>
 		</try>
 		</until-successful>

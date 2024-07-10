@@ -76,7 +76,7 @@ import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
 var operation = "screeningRequests."
-var apiCallName = "postOnboarding.affluentManagement."
+var apiCallName = "postScreeningRequests.customerProductsOnboarding."
 var securedProperty = false
 
 var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
@@ -101,6 +101,60 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 		</ee:transform>
 		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="b14dff37-a5c7-4fe9-a9ce-16a14b29d30a" name="customerProductsOnboardingPapi-http-request" />
 		<ee:transform doc:name="httpStatus, response" doc:id="58da1e5c-9714-4098-8857-e5aa2f1a7e14" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-ppe-screening-requests-impl-subflow" doc:id="1a7cc13b-d880-40fe-90df-6dbd2306149c" >
+		<ee:transform doc:name="Request Config" doc:id="1795676b-2ecf-40d2-af29-47ee710c8c18" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"validationCategoryCode": "PPE_DATA"
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.customerProductsOnboarding."
+var operation = "screeningRequests."
+var apiCallName = "postPPEScreeningRequests.customerProductsOnboarding."
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantUuid,
+		"id": vars.onboardingUuid
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="2af5d51e-27ca-44b2-bf36-54791bc86af3" name="customerProductsOnboardingPapi-http-request" />
+		<ee:transform doc:name="httpStatus, response" doc:id="fe5e7fc2-a4e2-4408-801b-38d6e24a4dbf" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json skipNullOn="everywhere"
