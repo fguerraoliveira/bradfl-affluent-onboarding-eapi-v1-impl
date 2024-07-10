@@ -3,7 +3,7 @@ api:
 
 http:
   host: "0.0.0.0"
-  port: "8080"
+  port: "8088"
   
 processApi:
   customerProductsOnboarding:
@@ -34,7 +34,7 @@ processApi:
         millisBetweenRetries: "1000"
   affluentManagement:
     protocol: "HTTP"
-    basePath: "/tenants/{tenantId}/onboardings"
+    basePath: "/api/tenants/{tenantId}/onboardings"
     host: "localhost"
     port: "8087"
     connectionIdleTimeout: "180000"

@@ -13,11 +13,8 @@ var baseApiCall = 'api-call.postSendOwnershipConfOTP.affluentManagement.sendOwne
 ---
 {
 	"contactPointPhone": {
-        "contactPointType": [
-            "ContactPointPhone"
-          ],
         "phoneCountryCode": vars.originalPayload.phoneCountryCode,
-        "areaCode": vars.originalPayload.phoneAreCode,
+        "areaCode": vars.originalPayload.phoneAreaCode,
         "telephoneNumber": vars.originalPayload.phoneNumber
 
     },
