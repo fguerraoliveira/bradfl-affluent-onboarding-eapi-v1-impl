@@ -18,8 +18,8 @@ var baseApiCall = 'api-call.postSendOwnershipConfOTP.affluentManagement.sendOwne
         "telephoneNumber": vars.originalPayload.phoneNumber
 
     },
-	"validationDurationInSec": Mule::p(baseApiCall ++ 'validationDurationInSec'),
-	"validationMarginInSec": Mule::p(baseApiCall ++ 'validationMarginInSec')
+	"validationDurationInSec": Mule::p(baseApiCall ++ 'validationDurationInSec') as Number,
+	"validationMarginInSec": Mule::p(baseApiCall ++ 'validationMarginInSec') as Number
 }]]></ee:set-payload>
             </ee:message>
             <ee:variables>
@@ -74,11 +74,6 @@ var baseApiCall = 'api-call.postValidateOwnershipConfirmation.affluentManagement
 {
 	"otpValue": vars.originalPayload.otpValue,
 	"contactPointPhone": {
-        "contactPointType": [
-            "ContactPointPhone"
-          ],
-        "id": "",
-        "activeFromDate": "2000-01-01", //its required in papi, but not used
         "telephoneNumber": vars.originalPayload.phoneNumber,
         "areaCode": vars.originalPayload.phoneAreaCode,
         "phoneCountryCode": vars.originalPayload.phoneCountryCode
