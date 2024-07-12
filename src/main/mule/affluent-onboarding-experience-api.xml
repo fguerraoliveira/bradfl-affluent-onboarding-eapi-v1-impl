@@ -64,7 +64,7 @@
         </ee:transform>
         <flow-ref doc:name="post-ppe-screening-requests-impl-subflow" doc:id="d644b92b-bd8a-423e-8784-6110e36d23a1" name="post-ppe-screening-requests-impl-subflow" />
     </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:application\json:affluent-onboarding-experience-api-config">
+    <!-- [STUDIO:"post:\tenants\(tenantId)\onboardings\(id)\.request-signature:application\json:affluent-onboarding-experience-api-config"]<flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
@@ -75,17 +75,17 @@
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+&#45;&#45;-
 {
   errorCode: "400",
   errorMessage: "Invalid request message",
   transactionId: "dd960082-abbf-47c2-8c65-f18eeb35848b",
   timeStamp: "2019-09-30T15:27:49.274Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
             </ee:message>
         </ee:transform>
-    </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-signature:application\json:affluent-onboarding-experience-api-config">
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\tenants\(tenantId)\onboardings\(id)\.validate-signature:application\json:affluent-onboarding-experience-api-config"]<flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-signature:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
@@ -96,14 +96,14 @@ output application/json
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+&#45;&#45;-
 {
   status: "FINISHED_PROSPECT"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
             </ee:message>
         </ee:transform>
-    </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config"]<flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
@@ -114,17 +114,17 @@ output application/json
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+&#45;&#45;-
 {
   errorCode: "400",
   errorMessage: "Invalid request message",
   transactionId: "dd960082-abbf-47c2-8c65-f18eeb35848b",
   timeStamp: "2019-09-30T15:27:49.274Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
             </ee:message>
         </ee:transform>
-    </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
+    </flow> [STUDIO] -->
+    <!-- [STUDIO:"post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config"]<flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
             <ee:variables>
                 <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
@@ -135,7 +135,7 @@ output application/json
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+&#45;&#45;-
 {
   id: null,
   name: "Template",
@@ -148,18 +148,18 @@ output application/json
       propertyName: "globalDocumentId",
       propertyValue: "af3d5c80-f237-11ec-9d38-02b65bc9fbca"
     }
-  ],
+  &#93;,
   externalIds: [
     {
       id: null,
       externalId: "75cff69a-a891-4e12-b00c-bdb3948e19f5",
       externalIdType: [
         "DOCUSIGN"
-      ],
+      &#93;,
       status: "VALID",
       statusLastChangedDate: "2022-06-02T16:17:37.000Z"
     }
-  ],
+  &#93;,
   auditInfo: {
     createdBy: "leads-prc-api",
     createdDate: "2022-06-06T14:52:38.3030000Z",
@@ -191,8 +191,8 @@ output application/json
     templateUrl: "https://www.example.com/bucket/template.pdf",
     templateTransformationScript: "script"
   }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+} as Object {encoding: "UTF-8", mediaType: "application/json"}&#93;&#93;></ee:set-payload>
             </ee:message>
         </ee:transform>
-    </flow>
+    </flow> [STUDIO] -->
 </mule>

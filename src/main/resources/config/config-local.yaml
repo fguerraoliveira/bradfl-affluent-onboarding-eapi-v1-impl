@@ -10,7 +10,7 @@ processApi:
     protocol: "HTTP"
     basePath: "/api/tenants/{tenantId}/onboardings"
     host: "localhost"
-    port: "8081"
+    port: "8082"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"
     responseTimeout: "50000"
