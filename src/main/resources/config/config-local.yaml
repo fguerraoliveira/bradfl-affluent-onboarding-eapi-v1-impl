@@ -32,6 +32,12 @@ processApi:
         method: "POST"
         maxRetries: "0"
         millisBetweenRetries: "1000"
+      generateDocsFromTemplate:
+        path: "/{id}/documents/.generate"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000"
+                
   affluentManagement:
     protocol: "HTTP"
     basePath: "/api/tenants/{tenantId}/onboardings"
@@ -107,4 +113,9 @@ api-call:
     affluentManagement:
       postValidateOwnershipConfirmation:
         validationDurationInSec: "600"
-        validationMarginInSec: "60"        
+        validationMarginInSec: "60"
+  postW8Forms:
+    customerProductsOnboarding: 
+      generateDocsFromTemplate:
+        maxRetries: "0"
+        millisBetweenRetries: "1000"            
