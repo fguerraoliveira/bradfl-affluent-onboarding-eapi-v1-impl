@@ -24,8 +24,8 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "generateDocsFromTemplate."
-var apiCallName = "postW8Forms.customerProductsOnboarding."
+var operation = "uploadIdentificationDocument."
+var apiCallName = ""
 var securedProperty = false
 
 var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')

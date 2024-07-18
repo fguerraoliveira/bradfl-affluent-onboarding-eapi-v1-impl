@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="post-upload-identification-document-impl" doc:id="8c468893-7a51-46f8-9995-a28fbebb884a" >
+		<ee:transform doc:name="Request Config" doc:id="b7926d28-da1e-4ba1-9f6c-d605e5984849" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output multipart/form-data
+---
+{
+	"parts": {
+		"fileContent": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "fileContent",
+					"fileName": "fileContent",
+					"subtype": "form-data"
+				},
+				"Content-Type": "application/octet-stream"
+			},
+			"content": vars.fileContent
+		},
+		"partyIdentificacion": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "partyIdentificacion",
+					"subtype": "form-data"
+				},
+				"Content-Type": "application/json"
+			},
+			"content": vars.onboardingData.onboarding.partyIdentifications[0] default {}
+		},
+		"party": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "party",
+					"subtype": "form-data"
+				},
+				"Content-Type": "application/json"
+			},
+			"content": vars.onboardingData.onboarding.party
+		},
+		"documentType": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "documentType",
+					"subtype": "form-data"
+				},
+				"Content-Type": "text/plain"
+			},
+			"content": vars.originalPayload.documentType
+		},
+		"contextName": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "contextName",
+					"subtype": "form-data"
+				},
+				"Content-Type": "text/plain"
+			},
+			"content": "DIGITAL_ONBOARDING"
+		},
+		"contextId": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "document",
+					"subtype": "form-data"
+				},
+				"Content-Type": "text/plain"
+			},
+			"content": vars.onboardingUuid
+		}
+}
+
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.customerProductsOnboarding."
+var operation = "uploadIdentificationDocument."
+var apiCallName = ""
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantId,
+		"id": vars.id
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="b1059823-b3ff-4fdf-8ab7-1ec3e6a2d6ea" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
+		<ee:transform doc:name="httpStatus, response" doc:id="f714bf8c-5493-4e24-b5c4-e88d662f5e72" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+</mule>
