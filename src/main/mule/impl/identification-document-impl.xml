@@ -84,7 +84,7 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadIdentificationDocument."
+var operation = "uploadDocument."
 var apiCallName = ""
 var securedProperty = false
 
@@ -158,7 +158,7 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadProofOfAddress."
+var operation = "uploadDocument."
 var apiCallName = ""
 var securedProperty = false
 
@@ -180,14 +180,7 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<try doc:name="Try" doc:id="009a92a3-9a38-4bb1-9105-117390dbed8e" >
-			<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
-			<error-handler>
-				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="550562cf-0e1a-49a3-b722-d3e0b92af0a7" type="CPO:INTERNAL_SERVER_ERROR">
-					<raise-error doc:name="Raise error" doc:id="7f2eb383-4e08-4dc6-b9b6-f67257ee1662" type="CPO:INTERNAL_SERVER_ERROR" description="An error occurred while uploading the document"/>
-				</on-error-propagate>
-			</error-handler>
-		</try>
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
 		<ee:transform doc:name="httpStatus, response" doc:id="0e7ccbac-9201-4227-9532-1e65e847dbc2" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
