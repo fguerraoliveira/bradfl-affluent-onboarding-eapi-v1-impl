@@ -10,10 +10,10 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <set-variable value="#[attributes.relativePath]" doc:name="relativePath" doc:id="7c7d57dd-cf47-4832-bfd4-c0050a496679" variableName="relativePath" />
-        <logger level="INFO" doc:name="Start" doc:id="8b864c08-5044-416c-92e3-08c053c78177" message="Starting #[vars.relativePath] / Body: #[payload]" />
+        <set-variable value="#[attributes.relativePath]" doc:name="relativePath" doc:id="a1deec68-9a58-4629-a7b3-b0a442827779" variableName="relativePath" />
+        <logger level="INFO" doc:name="Start" doc:id="d3d02861-801c-4758-a194-abe8c9e0d1b8" message="Starting #[vars.relativePath] / Body: #[payload]" />
         <apikit:router config-ref="affluent-onboarding-experience-api-config" />
-        <logger level="INFO" doc:name="End" doc:id="c1bfadd5-9e90-41c7-9d25-53e0c7269e54" message="End of #[vars.relativePath] / Body: #[payload]" />
+        <logger level="INFO" doc:name="End" doc:id="dc444595-4e16-45b1-a064-ea978fea1c73" message="End of #[vars.relativePath] / Body: #[payload]" />
         <error-handler ref="error-handler_common" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings:application\json:affluent-onboarding-experience-api-config">
@@ -23,55 +23,67 @@
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-onboardings-impl-subflow" doc:id="f09a341b-494a-4f14-b041-bdcfb689771a" name="post-onboardings-impl-subflow" />
+        <flow-ref doc:name="post-onboardings-impl-subflow" doc:id="b8ab8a9d-9ccd-4e73-9e1a-9eceb9f1f2f1" name="post-onboardings-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.send-ownership-confirmation-otp:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="d685e68b-1807-4d9c-adfa-5e7b2bfaa0f4">
+        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="c831afa1-9cb9-430b-a005-b5cb2facfe11">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
                 <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-send-ownership-conf-otp-impl-subflow" doc:id="bcdedd58-75af-44f4-a09e-36319e2ca6e3" name="post-send-ownership-conf-otp-impl-subflow" />
+        <flow-ref doc:name="post-send-ownership-conf-otp-impl-subflow" doc:id="e03bc2c2-ba09-4d08-8e2e-b8325c71de16" name="post-send-ownership-conf-otp-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\source-data-screening-requests:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="6f0901a5-76a6-4178-828d-810ac0fa2e3b">
+        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="c42b1663-36e6-4d7f-b01b-96f42823a607">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
                 <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-screening-requests-impl-subflow" doc:id="00e9274c-e063-4dd0-9dee-d57ad9fd6e17" name="post-screening-requests-impl-subflow" />
+        <flow-ref doc:name="post-screening-requests-impl-subflow" doc:id="5c22bc4e-891f-4105-98e6-768186aafaeb" name="post-screening-requests-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-ownership-confirmation-otp:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="bacfd2c6-78ef-4ba1-b533-110ebac8930b">
+        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="6ad6e630-7418-45ef-ae83-7ca95efe429d">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
                 <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-validate-ownership-confirmation-impl-subflow" doc:id="e8b1f915-8573-4ac9-b0dd-178fb66dc805" name="post-validate-ownership-confirmation-impl-subflow" />
+        <flow-ref doc:name="post-validate-ownership-confirmation-impl-subflow" doc:id="797d499e-9fcf-4071-a1c2-4ff93e6a7bce" name="post-validate-ownership-confirmation-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\ppe-screening-requests:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="a5f1c39f-0ffd-4e33-b178-6497b13cb4c1">
+        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="38f910a3-f5df-4971-b225-e8f9f38538ad">
             <ee:variables>
                 <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-ppe-screening-requests-impl-subflow" doc:id="0710ec25-0e59-4926-b958-81760167a928" name="post-ppe-screening-requests-impl-subflow" />
+        <flow-ref doc:name="post-ppe-screening-requests-impl-subflow" doc:id="d8740f83-b769-4837-b5e8-9ad7c43042fe" name="post-ppe-screening-requests-impl-subflow" />
     </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="3869af1e-0a74-4d6b-a982-d78a9953a6d3">
+    <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
+        <ee:transform doc:name="Transform Message">
             <ee:variables>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
+                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-w8-forms-impl-subflow" doc:id="2728d496-bfc4-412e-af73-ce6ec205c873" name="post-w8-forms-impl-subflow" />
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  errorCode: "400",
+  errorMessage: "Invalid request message",
+  transactionId: "dd960082-abbf-47c2-8c65-f18eeb35848b",
+  timeStamp: "2019-09-30T15:27:49.274Z"
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
@@ -101,7 +113,7 @@ output application/json
                 <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="BodyVars" doc:id="8428fa32-6533-4e17-9de5-9edd60b82611">
+        <ee:transform doc:name="BodyVars" doc:id="c237cbf1-53df-40a2-84a4-6e35f15b2067">
             <ee:message />
             <ee:variables>
                 <ee:set-variable variableName="fileContent"><![CDATA[%dw 2.0
@@ -125,70 +137,7 @@ output json
 }]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <flow-ref doc:name="post-upload-identification-document-impl" doc:id="64534c52-cc9f-4447-a761-1eab31843822" name="post-upload-identification-document-impl" />
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  id: null,
-  name: "Template",
-  description: "Generic document template",
-  documentStatus: "CURRENT",
-  documentType: "Document",
-  signatureStatus: "SIGNED",
-  customProperties: [
-    {
-      propertyName: "globalDocumentId",
-      propertyValue: "af3d5c80-f237-11ec-9d38-02b65bc9fbca"
-    }
-  ],
-  externalIds: [
-    {
-      id: null,
-      externalId: "75cff69a-a891-4e12-b00c-bdb3948e19f5",
-      externalIdType: [
-        "DOCUSIGN"
-      ],
-      status: "VALID",
-      statusLastChangedDate: "2022-06-02T16:17:37.000Z"
-    }
-  ],
-  auditInfo: {
-    createdBy: "leads-prc-api",
-    createdDate: "2022-06-06T14:52:38.3030000Z",
-    updatedBy: "leads-prc-api",
-    updatedDate: "2022-06-06T14:52:38.3030000Z",
-    isDeleted: false
-  },
-  partyAgreementStatus: "partyAgreementStatus",
-  providerValidationStatus: "providerValidationStatus",
-  validationProvider: "KYC provider",
-  extProviderValidationRequestId: "id",
-  extProviderValidationStatus: "extProviderValidationStatus",
-  party: {
-    id: null,
-    partyType: "Party"
-  },
-  partyIdentification: {
-    id: null,
-    name: "name",
-    identificationNumber: "12344632100",
-    partyIdentificationType: "Type"
-  },
-  "type": {
-    id: "kjhgfxdcv-87654rtdfgh-jhgjfhv",
-    code: "CODE",
-    requirePartyAgreement: false,
-    requireProviderValidation: false,
-    validationProvider: "PROVIDER",
-    templateUrl: "https://www.example.com/bucket/template.pdf",
-    templateTransformationScript: "script"
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+        <flow-ref doc:name="post-upload-identification-document-impl" doc:id="cd3cef76-ea67-4ad9-ab1d-4b1ae5af912a" name="post-upload-identification-document-impl" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-signature:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="Transform Message">
@@ -208,29 +157,8 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:variables>
-                <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
-                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  errorCode: "400",
-  errorMessage: "Invalid request message",
-  transactionId: "dd960082-abbf-47c2-8c65-f18eeb35848b",
-  timeStamp: "2019-09-30T15:27:49.274Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
-    </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-proof-of-address:multipart\form-data:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, fileContent" doc:id="300a4488-94cb-43b5-8e14-b5a5028b754a">
+        <ee:transform doc:name="onboardingUuid, tenantUuid, fileContent" doc:id="9bef17e5-67b6-4c72-b524-eca02ccb7934">
 			<ee:variables>
 				<ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
 				<ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
@@ -241,7 +169,7 @@ output application/octet-stream
 payload.parts.fileContent.content]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-        <flow-ref doc:name="post-upload-proof-of-address-subflow" doc:id="e46a8f36-2b8e-4672-be1b-6dea5bb27377" name="post-upload-proof-of-address-subflow"/>
+        <flow-ref doc:name="post-upload-proof-of-address-subflow" doc:id="5069c013-e042-40d4-902c-df0e9ee5f407" name="post-upload-proof-of-address-subflow"/>
 		<ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -305,5 +233,14 @@ output application/json
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+    </flow>
+    <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
+		<ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="81eb2f95-7fbb-4953-8598-7466a3f45079">
+			<ee:variables>
+				<ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+				<ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="post-w8-forms-impl-subflow" doc:id="7ef7b6f6-9894-469f-9bf3-251ec712797d" name="post-w8-forms-impl-subflow" />
     </flow>
 </mule>

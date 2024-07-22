@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Request Config" doc:id="ba446988-e66e-441c-9583-792dcf2b6046">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
-output application/java
+output application/json
 
 ---
 {
@@ -24,8 +24,8 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadIdentificationDocument."
-var apiCallName = ""
+var operation = "generateDocsFromTemplate."
+var apiCallName = "postW8Forms.customerProductsOnboarding."
 var securedProperty = false
 
 var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
