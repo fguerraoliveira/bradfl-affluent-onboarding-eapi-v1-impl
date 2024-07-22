@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
 		<artifactId>bradfl-parent-pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</groupId>
