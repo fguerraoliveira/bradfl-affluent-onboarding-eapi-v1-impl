@@ -3,4 +3,5 @@
   <types:catalog/>
   <types:enrichment select="#b9303d05-6cd3-4cf5-b819-bd0a38a0745a"/>
   <types:enrichment select="#e5eef32f-c203-4b72-90fc-463d372ca0d1"/>
+  <types:enrichment select="#300a4488-94cb-43b5-8e14-b5a5028b754a"/>
 </types:mule>
