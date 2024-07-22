@@ -5,7 +5,7 @@
     <http:listener-config name="httpListenerConfig">
         <http:listener-connection host="${http.host}" port="${http.port}" />
     </http:listener-config>
-    <apikit:config name="affluent-onboarding-experience-api-config" api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.21:raml:zip:affluent-onboarding-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="affluent-onboarding-experience-api-config" api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.22:raml:zip:affluent-onboarding-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <!-- Properties Files -->
     <configuration-properties doc:name="common-config" doc:id="b5457b3c-f659-4d1e-972b-38ec2e0effa7" file="config/config-common.yaml" />
     <configuration-properties doc:name="env-config" doc:id="ebf9767a-8b7c-4f92-acd9-d0ee98bf6cbf" file="config/config-${mule.env}.yaml" />

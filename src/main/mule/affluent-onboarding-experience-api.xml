@@ -229,4 +229,75 @@ output application/json
             </ee:message>
         </ee:transform>
     </flow>
+    <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-proof-of-address:multipart\form-data:affluent-onboarding-experience-api-config">
+        <ee:transform doc:name="Transform Message">
+            <ee:variables>
+                <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
+                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Transform Message">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  id: null,
+  name: "Template",
+  description: "Generic document template",
+  documentStatus: "CURRENT",
+  documentType: "Document",
+  signatureStatus: "SIGNED",
+  customProperties: [
+    {
+      propertyName: "globalDocumentId",
+      propertyValue: "af3d5c80-f237-11ec-9d38-02b65bc9fbca"
+    }
+  ],
+  externalIds: [
+    {
+      id: null,
+      externalId: "75cff69a-a891-4e12-b00c-bdb3948e19f5",
+      externalIdType: [
+        "DOCUSIGN"
+      ],
+      status: "VALID",
+      statusLastChangedDate: "2022-06-02T16:17:37.000Z"
+    }
+  ],
+  auditInfo: {
+    createdBy: "leads-prc-api",
+    createdDate: "2022-06-06T14:52:38.3030000Z",
+    updatedBy: "leads-prc-api",
+    updatedDate: "2022-06-06T14:52:38.3030000Z",
+    isDeleted: false
+  },
+  partyAgreementStatus: "partyAgreementStatus",
+  providerValidationStatus: "providerValidationStatus",
+  validationProvider: "KYC provider",
+  extProviderValidationRequestId: "id",
+  extProviderValidationStatus: "extProviderValidationStatus",
+  party: {
+    id: null,
+    partyType: "Party"
+  },
+  partyIdentification: {
+    id: null,
+    name: "name",
+    identificationNumber: "12344632100",
+    partyIdentificationType: "Type"
+  },
+  "type": {
+    id: "kjhgfxdcv-87654rtdfgh-jhgjfhv",
+    code: "CODE",
+    requirePartyAgreement: false,
+    requireProviderValidation: false,
+    validationProvider: "PROVIDER",
+    templateUrl: "https://www.example.com/bucket/template.pdf",
+    templateTransformationScript: "script"
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
 </mule>
