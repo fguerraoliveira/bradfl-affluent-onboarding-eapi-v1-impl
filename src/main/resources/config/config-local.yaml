@@ -42,6 +42,11 @@ processApi:
         method: "POST"
         maxRetries: "0"
         millisBetweenRetries: "1000"
+      uploadProofOfAddress:
+        path: "tenants/{tenantId}/onboardings/{id}/.upload"
+        method: "POST"
+        maxRetries: "0"
+        millisBetweenRetries: "1000"       
                 
   affluentManagement:
     protocol: "HTTP"

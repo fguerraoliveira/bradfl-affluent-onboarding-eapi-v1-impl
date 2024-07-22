@@ -119,4 +119,78 @@ payload.httpResponse]]></ee:set-payload>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="post-upload-proof-of-address-subflow" doc:id="659fbeca-7b62-4adf-a734-adffb35497a3" >
+		<ee:transform doc:name="Request Config" doc:id="c8fd0093-6cde-4d15-8ca5-1d8a1f9ccfb3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output multipart/form-data
+---
+{
+	"parts": {
+		"fileContent": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "fileContent",
+					"fileName": "fileContent",
+					"subtype": "form-data"
+				},
+				"Content-Type": "application/octet-stream"
+			},
+			"content": vars.fileContent
+		},
+		"documentType": {
+			"headers": {
+				"Content-Disposition": {
+					"name": "documentType",
+					"subtype": "form-data"
+				},
+				"Content-Type": "text/plain"
+			},
+			"content": "PROOF_OF_ADDRESS"		
+		}
+}
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.customerProductsOnboarding."
+var operation = "uploadProofOfAddress."
+var apiCallName = ""
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantUuid,
+		"id": vars.onboardingUuid
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
+		<ee:transform doc:name="httpStatus, response" doc:id="0e7ccbac-9201-4227-9532-1e65e847dbc2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
 </mule>
