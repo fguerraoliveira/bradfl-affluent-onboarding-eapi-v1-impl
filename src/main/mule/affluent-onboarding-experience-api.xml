@@ -101,21 +101,20 @@ output application/json
                 <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="BodyVars" doc:id="8428fa32-6533-4e17-9de5-9edd60b82611" >
-			<ee:message >
-			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="fileContent" ><![CDATA[%dw 2.0
+        <ee:transform doc:name="BodyVars" doc:id="8428fa32-6533-4e17-9de5-9edd60b82611">
+            <ee:message />
+            <ee:variables>
+                <ee:set-variable variableName="fileContent"><![CDATA[%dw 2.0
 
 output application/octet-stream
 ---
 payload.parts.fileContent.content]]></ee:set-variable>
-				<ee:set-variable variableName="fileName" ><![CDATA[%dw 2.0
+                <ee:set-variable variableName="fileName"><![CDATA[%dw 2.0
 
 output text
 ---
 payload.parts.fileContent.headers."Content-Disposition".filename]]></ee:set-variable>
-				<ee:set-variable variableName="originalPayload" ><![CDATA[%dw 2.0
+                <ee:set-variable variableName="originalPayload"><![CDATA[%dw 2.0
 
 output json
 ---
@@ -123,12 +122,11 @@ output json
 	documentType: payload.parts.documentType.content,
 	contextName: payload.parts.contextName.content,
 	contextId: payload.parts.contextId.content
-}
-]]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="post-upload-identification-document-impl" doc:id="64534c52-cc9f-4447-a761-1eab31843822" name="post-upload-identification-document-impl"/>
-		<ee:transform doc:name="Transform Message">
+}]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="post-upload-identification-document-impl" doc:id="64534c52-cc9f-4447-a761-1eab31843822" name="post-upload-identification-document-impl" />
+        <ee:transform doc:name="Transform Message">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
