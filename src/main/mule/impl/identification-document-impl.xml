@@ -106,7 +106,7 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="b1059823-b3ff-4fdf-8ab7-1ec3e6a2d6ea" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="b1059823-b3ff-4fdf-8ab7-1ec3e6a2d6ea" name="customerProductsOnboardingPapi-http-request" />
 		<ee:transform doc:name="httpStatus, response" doc:id="f714bf8c-5493-4e24-b5c4-e88d662f5e72" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -180,7 +180,7 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request" />
 		<ee:transform doc:name="httpStatus, response" doc:id="0e7ccbac-9201-4227-9532-1e65e847dbc2" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<ee:transform doc:name="Request Config" doc:id="7f11ad1a-9724-4650-b3ed-487d963af6e1">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
 	"taxIdNumber": vars.originalPayload.taxIdNumber,
@@ -59,11 +59,10 @@ payload.httpResponse]]></ee:set-payload>
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="post-screening-requests-impl-subflow" doc:id="9b9091db-9637-487e-be99-b55f851610b3" >
-		<logger level="DEBUG" doc:name="Log Payload" doc:id="bec1f227-552e-4c8a-889c-b5e2040f661b" message="#[payload]" />
 		<ee:transform doc:name="Request Config" doc:id="9ac7dc02-c8cd-4ec9-8ebc-78503bc80d4f" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
 	"validationCategoryCode": "SOURCE_DATA_VALIDATION"
@@ -117,7 +116,7 @@ payload.httpResponse]]></ee:set-payload>
 		<ee:transform doc:name="Request Config" doc:id="1795676b-2ecf-40d2-af29-47ee710c8c18" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/java
+output application/json
 ---
 {
 	"validationCategoryCode": "PPE_DATA_VALIDATION"
