@@ -84,7 +84,7 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadIdentificationDocument."
+var operation = "uploadDocument."
 var apiCallName = ""
 var securedProperty = false
 
@@ -158,7 +158,7 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadProofOfAddress."
+var operation = "uploadDocument."
 var apiCallName = ""
 var securedProperty = false
 

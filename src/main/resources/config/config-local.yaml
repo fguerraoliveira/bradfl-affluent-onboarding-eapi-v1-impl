@@ -8,7 +8,7 @@ http:
 processApi:
   customerProductsOnboarding:
     protocol: "HTTPS"
-    basePath: "/mocking/api/v1/links/4b733051-c14f-46ad-8737-87676f4427e8"
+    basePath: "/mocking/api/v1/links/4b733051-c14f-46ad-8737-87676f4427e8/tenants/{tenantId}/onboardings"
     host: "anypoint.mulesoft.com"
     port: "443"
     connectionIdleTimeout: "180000"
@@ -37,16 +37,11 @@ processApi:
         method: "POST"
         maxRetries: "0"
         millisBetweenRetries: "1000"
-      uploadIdentificationDocument:
-        path: "tenants/{tenantId}/onboardings/{id}/.upload"
+      uploadDocument:
+        path: "/{id}/.upload"
         method: "POST"
         maxRetries: "0"
-        millisBetweenRetries: "1000"
-      uploadProofOfAddress:
-        path: "tenants/{tenantId}/onboardings/{id}/.upload"
-        method: "POST"
-        maxRetries: "0"
-        millisBetweenRetries: "1000"       
+        millisBetweenRetries: "1000"   
                 
   affluentManagement:
     protocol: "HTTP"
@@ -128,4 +123,9 @@ api-call:
     customerProductsOnboarding: 
       generateDocsFromTemplate:
         maxRetries: "0"
-        millisBetweenRetries: "1000"            
+        millisBetweenRetries: "1000"   
+  postTermsAndContracts:
+    customerProductsOnboarding: 
+      generateDocsFromTemplate:
+        maxRetries: "0"
+        millisBetweenRetries: "1000"          

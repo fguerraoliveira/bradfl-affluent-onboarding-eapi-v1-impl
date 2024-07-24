@@ -24,8 +24,8 @@ output application/java
 import * from dwl::HttpClient
 
 var baseExternalService = "processApi.customerProductsOnboarding."
-var operation = "uploadIdentificationDocument."
-var apiCallName = ""
+var operation = "generateDocsFromTemplate."
+var apiCallName = "postW8Forms.customerProductsOnboarding"
 var securedProperty = false
 
 var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
@@ -48,6 +48,65 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
         </ee:transform>
 		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="2a4c09dc-0d2a-4d28-bed5-ea288ae8e744" name="customerProductsOnboardingPapi-http-request" />
 		<ee:transform doc:name="httpStatus, response" doc:id="98b8876f-dc07-45c9-b124-29f6b7962ce6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-terms-and-contracts-impl-subflow" doc:id="81db4a26-85f9-40c2-b715-7bd876c0c243" >
+		<ee:transform doc:name="Request Config" doc:id="8d608684-4326-46ce-b9cc-f86a63a75666" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+
+---
+{
+	"documentTypes": [
+		"CLIENT_AGREEMENT",
+		"INTERNET_BANKING_TERMS",
+		"PERSONAL_ACCOUNT_ACK",
+		"CROSS_BORDER_INFO_SHARING_ACK",
+		"FUND_TRANSFER_AGREEMENT",		
+	]
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.customerProductsOnboarding."
+var operation = "generateDocsFromTemplate."
+var apiCallName = "postTermsAndContracts.customerProductsOnboarding"
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantUuid,
+		"id": vars.onboardingUuid
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request" doc:id="1db2678a-2c95-46d5-930b-ed4912b6bb7e" name="customerProductsOnboardingPapi-http-request" />
+		<ee:transform doc:name="httpStatus, response" doc:id="d364de9c-1ec9-462d-aed2-eb4ca02a3868" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json skipNullOn="everywhere"
