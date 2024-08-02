@@ -25,4 +25,5 @@
             </reconnection>
         </http:request-connection>
     </http:request-config>
+	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="eddf7086-d32d-4c33-9fcb-24f7e2d0f4fd" flowRef="affluent-onboarding-experience-api-main" />
 </mule>
