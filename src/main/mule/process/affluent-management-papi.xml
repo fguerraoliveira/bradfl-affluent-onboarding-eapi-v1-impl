@@ -80,4 +80,43 @@ output application/java
 			</error-handler>
 				</try>
 	</sub-flow>
+	<sub-flow name="request-customer-digital-signature-process-api-subFlow" doc:id="22411cd6-08d6-402e-bae6-5cc16e66cb6d" >
+		<ee:transform doc:name="Request Config" doc:id="f970ed67-a558-4400-9701-32b7119d5324" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[%dw 2.0
+output application/java
+
+import * from dwl::HttpClient
+
+var baseExternalService = "processApi.affluentManagement."
+var operation = "requestSignature."
+var apiCallName = "postRequestSignature.affluentManagement."
+var securedProperty = false
+
+var clientIdHeaderName = serviceProperty(baseExternalService,'auth.clientId.headerName')
+var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSecret.headerName')
+
+---
+{
+	method: callProperty(baseExternalService, operation, apiCallName, "method"),
+	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
+	queryParams:  {},
+	uriParams: {
+		"tenantId": vars.tenantId,
+		"id": vars.id
+	},
+	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
+	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
+	path: callProperty(baseExternalService, operation, apiCallName, "path")
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="affluentManagement-http-request" doc:id="503f34f3-8dae-4dd5-b6b9-9d2ef176b987" name="affluentManagementPapi-http-request" />
+	</sub-flow>
 </mule>

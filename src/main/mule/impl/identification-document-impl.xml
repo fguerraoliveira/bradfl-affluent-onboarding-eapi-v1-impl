@@ -71,7 +71,7 @@ output multipart/form-data
 				},
 				"Content-Type": "text/plain"
 			},
-			"content": vars.onboardingUuid
+			"content": vars.id
 		}
 }
 
@@ -171,8 +171,8 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
 	queryParams:  {},
 	uriParams: {
-		"tenantId": vars.tenantUuid,
-		"id": vars.onboardingUuid
+		"tenantId": vars.tenantId,
+		"id": vars.id
 	},
 	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
 	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),

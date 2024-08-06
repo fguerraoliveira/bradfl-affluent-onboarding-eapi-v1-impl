@@ -17,82 +17,61 @@
         <error-handler ref="error-handler_common" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="tenantUuid, originalPayload">
+        <ee:transform doc:name="tenantId, originalPayload">
             <ee:variables>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-onboardings-impl-subflow" doc:id="f09a341b-494a-4f14-b041-bdcfb689771a" name="post-onboardings-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.send-ownership-confirmation-otp:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="d685e68b-1807-4d9c-adfa-5e7b2bfaa0f4">
+        <ee:transform doc:name="id, tenantId, originalPayload" doc:id="d685e68b-1807-4d9c-adfa-5e7b2bfaa0f4">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-send-ownership-conf-otp-impl-subflow" doc:id="bcdedd58-75af-44f4-a09e-36319e2ca6e3" name="post-send-ownership-conf-otp-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\source-data-screening-requests:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="6f0901a5-76a6-4178-828d-810ac0fa2e3b">
+        <ee:transform doc:name="id, tenantId, originalPayload" doc:id="6f0901a5-76a6-4178-828d-810ac0fa2e3b">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-screening-requests-impl-subflow" doc:id="00e9274c-e063-4dd0-9dee-d57ad9fd6e17" name="post-screening-requests-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-ownership-confirmation-otp:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, originalPayload" doc:id="bacfd2c6-78ef-4ba1-b533-110ebac8930b">
+        <ee:transform doc:name="id, tenantId, originalPayload" doc:id="bacfd2c6-78ef-4ba1-b533-110ebac8930b">
             <ee:variables>
                 <ee:set-variable variableName="originalPayload"><![CDATA[payload]]></ee:set-variable>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-validate-ownership-confirmation-impl-subflow" doc:id="e8b1f915-8573-4ac9-b0dd-178fb66dc805" name="post-validate-ownership-confirmation-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\ppe-screening-requests:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="a5f1c39f-0ffd-4e33-b178-6497b13cb4c1">
+        <ee:transform doc:name="id, tenantId" doc:id="a5f1c39f-0ffd-4e33-b178-6497b13cb4c1">
             <ee:variables>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-ppe-screening-requests-impl-subflow" doc:id="0710ec25-0e59-4926-b958-81760167a928" name="post-ppe-screening-requests-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="3869af1e-0a74-4d6b-a982-d78a9953a6d3">
+        <ee:transform doc:name="id, tenantId" doc:id="3869af1e-0a74-4d6b-a982-d78a9953a6d3">
             <ee:variables>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-w8-forms-impl-subflow" doc:id="2728d496-bfc4-412e-af73-ce6ec205c873" name="post-w8-forms-impl-subflow" />
-    </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="Transform Message">
-            <ee:variables>
-                <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
-                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  errorCode: "400",
-  errorMessage: "Invalid request message",
-  transactionId: "dd960082-abbf-47c2-8c65-f18eeb35848b",
-  timeStamp: "2019-09-30T15:27:49.274Z"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-identification-document:multipart\form-data:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="ParamVars tenantId, id">
@@ -209,19 +188,20 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76">
+        <ee:transform doc:name="id, tenantId" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76">
             <ee:variables>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-proof-of-address:multipart\form-data:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="onboardingUuid, tenantUuid, fileContent" doc:id="300a4488-94cb-43b5-8e14-b5a5028b754a">
+        <ee:transform doc:name="id, tenantId, fileContent" doc:id="300a4488-94cb-43b5-8e14-b5a5028b754a">
             <ee:variables>
-                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
                 <ee:set-variable variableName="fileContent"><![CDATA[%dw 2.0
 
 output application/octet-stream
@@ -293,5 +273,14 @@ output application/json
 } as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
             </ee:message>
         </ee:transform>
+    </flow>
+    <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:affluent-onboarding-experience-api-config">
+		<ee:transform doc:name="ParamVars tenantId, id" doc:id="fd9296bd-d6b0-4b3e-a81d-6fe75f710c5a" >
+			<ee:variables >
+				<ee:set-variable variableName="tenantId" ><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+				<ee:set-variable variableName="id" ><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="request-customer-digital-signature-subFlow" doc:id="4cf5e673-9fc0-42d0-84a9-6b0a515a2492" name="request-customer-digital-signature-subFlow" />
     </flow>
 </mule>

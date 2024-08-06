@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="request-customer-digital-signature-subFlow" doc:id="14eec7e0-b686-49a9-908e-477dc07132ba" >
+		<ee:transform doc:name="Transform Message" doc:id="126f62ce-4440-4b52-9aad-26a4799eeb76" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="[I1]request-customer-digital-signature-process-api-subFlow" doc:id="bff9464f-8fa5-46ac-82bd-08554e5cd7ab" name="request-customer-digital-signature-process-api-subFlow"/>
+		<ee:transform doc:name="httpStatus, response" doc:id="ce97b19e-4dda-4d96-87fe-3d7d7e257066" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
+</mule>

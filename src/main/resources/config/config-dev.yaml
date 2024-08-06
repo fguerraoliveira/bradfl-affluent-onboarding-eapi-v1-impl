@@ -92,6 +92,11 @@ processApi:
 
 ##Sobrescreve as configs do .operations          
 api-call:
+  postRequestSignature:
+    affluentManagement:
+      requestSignature:
+        maxRetries: "0"
+        millisBetweenRetries: "1000"
   postOnboarding:
     affluentManagement: 
       createCustomerProductOnboarding:
