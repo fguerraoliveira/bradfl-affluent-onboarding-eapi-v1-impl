@@ -209,13 +209,13 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
-		<ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76" >
-			<ee:variables >
-				<ee:set-variable variableName="onboardingUuid" ><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-				<ee:set-variable variableName="tenantUuid" ><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />
+        <ee:transform doc:name="onboardingUuid, tenantUuid" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76">
+            <ee:variables>
+                <ee:set-variable variableName="onboardingUuid"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+                <ee:set-variable variableName="tenantUuid"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-proof-of-address:multipart\form-data:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="onboardingUuid, tenantUuid, fileContent" doc:id="300a4488-94cb-43b5-8e14-b5a5028b754a">
