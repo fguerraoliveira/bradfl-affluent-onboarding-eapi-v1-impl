@@ -192,6 +192,7 @@ output application/json
             <ee:variables>
                 <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
 	<sub-flow name="post-onboardings-impl-subflow" doc:id="95e4ea42-d9ec-4f48-af25-6c9b6e4b6d97">
+		<try doc:name="Try" doc:id="f22f016c-90f9-4054-94a8-563d60540fde" >
+			<validation:is-true doc:name="validate size taxIdNumber" doc:id="6b2704a3-f485-47d8-8e82-79834cf9a0de" expression="#[sizeOf(vars.originalPayload.taxIdNumber) == 11]" message="TaxIdNumber must have size=11"/>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="e7aac0d9-fbed-428b-b46d-7a838827b8aa" >
+					<set-variable value="400" doc:name="httpStatus" doc:id="3f65365c-f875-45e7-a7c9-cc4fa9f7ee15" variableName="httpStatus"/>
+				</on-error-propagate>
+			</error-handler>
+		</try>
 		<ee:transform doc:name="Request Config" doc:id="7f11ad1a-9724-4650-b3ed-487d963af6e1">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
