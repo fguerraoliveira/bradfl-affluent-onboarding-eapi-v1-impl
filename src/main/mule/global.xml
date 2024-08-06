@@ -38,7 +38,6 @@
     </http:request-config>
     
     <!--  ### Global Properties -->
-    <global-property doc:name="Global Property" doc:id="38d33b4e-b974-4ff8-aee6-f76fbe0d5e63" name="api.id" value="1" />
     <global-property doc:name="Global Property" doc:id="c55186b4-c273-4c60-8f68-cfa3645e9156" name="mule.env" value="local" />
 	<global-property doc:name="Global Property" doc:id="a06c7574-88c9-4034-8b73-91a75faeaf51" name="encryption.key" value="1" />
 	
