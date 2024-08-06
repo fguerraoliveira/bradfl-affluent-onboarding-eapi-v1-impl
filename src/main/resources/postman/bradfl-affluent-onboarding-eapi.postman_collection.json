@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "687ad6fb-daea-4cc4-9049-ca0912d0f97d",
+		"name": "bradfl-affluent-onboarding-eapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28160305"
+	},
+	"item": [
+		{
+			"name": "Upload Document",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "documentType",
+							"value": "pdf",
+							"type": "text"
+						},
+						{
+							"key": "fileContent",
+							"type": "file",
+							"src": "/Users/mlarizzate/Downloads/high-contrast-lady-bug-image-941x1024.webp"
+						},
+						{
+							"key": "contextName",
+							"value": "DIGITAL_ONBOARDING",
+							"type": "text"
+						},
+						{
+							"key": "contextId",
+							"value": "123156df",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{bradfl-affluent-onboarding-eapi-host}}/tenants/6278d273-228b-487d-833f-6a6f11066ac6/onboardings/6278d273-228b-487d-833f-6a6f11066ac6/.upload?otpValidationRequired=false/",
+					"host": [
+						"{{bradfl-affluent-onboarding-eapi-host}}"
+					],
+					"path": [
+						"tenants",
+						"6278d273-228b-487d-833f-6a6f11066ac6",
+						"onboardings",
+						"6278d273-228b-487d-833f-6a6f11066ac6",
+						".upload"
+					],
+					"query": [
+						{
+							"key": "otpValidationRequired",
+							"value": "false/"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "request-customer-digital-signature",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{bradfl-affluent-onboarding-eapi-host}}/tenants/{{tenantId}}/onboardings/{{onboardingId}}/.request-signature",
+					"host": [
+						"{{bradfl-affluent-onboarding-eapi-host}}"
+					],
+					"path": [
+						"tenants",
+						"{{tenantId}}",
+						"onboardings",
+						"{{onboardingId}}",
+						".request-signature"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
