@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:sockets="http://www.mulesoft.org/schema/mule/sockets" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/sockets http://www.mulesoft.org/schema/mule/sockets/current/mule-sockets.xsd  http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+    <!-- ### Import External Configs ### -->
     <import doc:name="common-configuration" doc:id="48427b01-0dcc-43d5-9c8e-aaee404d051f" file="global-common.xml" />
     <import doc:name="global-exception" doc:id="4f8e7fc9-ea4c-4e43-af3f-6ce86b7b0816" file="common-error-handler.xml" />
+    
+    <!-- ### Inbound Connection properties ### -->
     <http:listener-config name="httpListenerConfig">
         <http:listener-connection host="${http.host}" port="${http.port}" />
     </http:listener-config>
-    <apikit:config name="affluent-onboarding-experience-api-config" api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.22:raml:zip:affluent-onboarding-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <!-- Properties Files -->
+    <apikit:config name="affluent-onboarding-experience-api-config" api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.26:raml:zip:affluent-onboarding-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    
+    <!-- ### CloudHub  ### --> 
+    <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="6a642e6a-7ef3-46cf-8134-d64e2910a5c2" flowRef="affluent-onboarding-experience-api-main" />
+    
+    <!-- ### Secure properties ### -->
+    <secure-properties:config name="secure-common-config" doc:name="Secure Properties Config" doc:id="aab33846-cbd3-4777-99af-106ba686279f" file="config/config-common.yaml" key="${encryption.key}" />
+    <secure-properties:config name="secure-env-config" doc:name="Secure Properties Config" doc:id="a9bf9fef-867f-461a-a2f9-a0242ceefb81" file="config/config-${mule.env}.yaml" key="${encryption.key}" />
+    
+    <!-- ### Common Regular properties ### -->
     <configuration-properties doc:name="common-config" doc:id="b5457b3c-f659-4d1e-972b-38ec2e0effa7" file="config/config-common.yaml" />
     <configuration-properties doc:name="env-config" doc:id="ebf9767a-8b7c-4f92-acd9-d0ee98bf6cbf" file="config/config-${mule.env}.yaml" />
-    <secure-properties:config name="secure-common-config" doc:name="Secure Properties Config" doc:id="2295ece0-d73f-4970-812c-c5f5fafb2217" file="config/config-common.yaml" key="${encryption.key}" />
-    <secure-properties:config name="secure-env-config" doc:name="Secure Properties Config" doc:id="61796290-5f2c-40a1-85b2-af46cd55aab8" file="config/config-${mule.env}.yaml" key="${encryption.key}" />
+    
+    <!-- ### Outbound Connection properties ### -->
     <http:request-config name="affluentManagementPapi-http-request-config" doc:name="HTTP Request configuration" doc:id="6a194682-6846-44a7-b046-5c4ee4d81ef9" responseTimeout="${processApi.affluentManagement.responseTimeout}" basePath="${processApi.affluentManagement.basePath}">
         <http:request-connection host="${processApi.affluentManagement.host}" port="${processApi.affluentManagement.port}" connectionIdleTimeout="${processApi.affluentManagement.connectionIdleTimeout}" protocol="${processApi.affluentManagement.protocol}">
             <reconnection>
@@ -25,5 +36,10 @@
             </reconnection>
         </http:request-connection>
     </http:request-config>
-	<api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="eddf7086-d32d-4c33-9fcb-24f7e2d0f4fd" flowRef="affluent-onboarding-experience-api-main" />
+    
+    <!--  ### Global Properties -->
+    <global-property doc:name="Global Property" doc:id="38d33b4e-b974-4ff8-aee6-f76fbe0d5e63" name="api.id" value="1" />
+    <global-property doc:name="Global Property" doc:id="c55186b4-c273-4c60-8f68-cfa3645e9156" name="mule.env" value="local" />
+	<global-property doc:name="Global Property" doc:id="a06c7574-88c9-4034-8b73-91a75faeaf51" name="encryption.key" value="1" />
+	
 </mule>

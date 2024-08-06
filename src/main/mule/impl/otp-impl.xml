@@ -42,8 +42,8 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
 	queryParams:  {},
 	uriParams: {
-		"tenantId": vars.tenantUuid,
-		"id": vars.onboardingUuid
+		"tenantId": vars.tenantId,
+		"id": vars.id
 	},
 	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
 	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
@@ -100,8 +100,8 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 	headers: (createAuthHeadersIfEnabled(baseExternalService, clientIdHeaderName, clientSecretHeaderName, securedProperty)),
 	queryParams:  {},
 	uriParams: {
-		"tenantId": vars.tenantUuid,
-		"id": vars.onboardingUuid
+		"tenantId": vars.tenantId,
+		"id": vars.id
 	},
 	maxRetries: callProperty(baseExternalService, operation, apiCallName, "maxRetries"),
 	millisBetweenRetries: callProperty(baseExternalService, operation, apiCallName, "millisBetweenRetries"),
