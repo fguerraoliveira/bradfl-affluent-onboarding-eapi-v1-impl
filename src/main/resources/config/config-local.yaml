@@ -7,13 +7,17 @@ http:
   
 processApi:
   customerProductsOnboarding:
-    protocol: "HTTPS"
-    basePath: "/mocking/api/v1/links/4b733051-c14f-46ad-8737-87676f4427e8/tenants/{tenantId}/onboardings"
-    host: "anypoint.mulesoft.com"
-    port: "443"
+    #protocol: "HTTPS"
+    #basePath: "/mocking/api/v1/links/4b733051-c14f-46ad-8737-87676f4427e8/tenants/{tenantId}/onboardings"
+    #host: "anypoint.mulesoft.com"
+    #port: "443"
+    protocol: "HTTP"
+    basePath: "/api/tenants/{tenantId}/onboardings"
+    host: "localhost"
+    port: "8082"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"
-    responseTimeout: "50000"
+    responseTimeout: "300000"
     reconnection:
       frequency: "1000"
       attempts: "2"
@@ -44,13 +48,17 @@ processApi:
         millisBetweenRetries: "1000"   
                 
   affluentManagement:
-    protocol: "HTTPS"
-    basePath: "/mocking/api/v1/links/5f7824da-87ef-4aaa-920e-0a3b8a0071a8/tenants/{tenantId}/onboardings"
-    host: "anypoint.mulesoft.com"
-    port: "443"
+    #protocol: "HTTPS"
+    #basePath: "/mocking/api/v1/links/5f7824da-87ef-4aaa-920e-0a3b8a0071a8/tenants/{tenantId}/onboardings"
+    #host: "anypoint.mulesoft.com"
+    #port: "443"
+    protocol: "HTTP"
+    basePath: "/api/tenants/{tenantId}/onboardings"
+    host: "localhost"
+    port: "8087"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"
-    responseTimeout: "50000"
+    responseTimeout: "300000"
     reconnection:
       frequency: "1000"
       attempts: "2"
