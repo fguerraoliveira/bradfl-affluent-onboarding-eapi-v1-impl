@@ -1,5 +1,5 @@
 api:
-  id: ""
+  id: "9999999"
 
 http:
   host: "0.0.0.0"
@@ -7,10 +7,6 @@ http:
   
 processApi:
   customerProductsOnboarding:
-    #protocol: "HTTPS"
-    #basePath: "/mocking/api/v1/links/4b733051-c14f-46ad-8737-87676f4427e8/tenants/{tenantId}/onboardings"
-    #host: "anypoint.mulesoft.com"
-    #port: "443"
     protocol: "HTTP"
     basePath: "/api/tenants/{tenantId}/onboardings"
     host: "localhost"
@@ -48,10 +44,6 @@ processApi:
         millisBetweenRetries: "1000"   
                 
   affluentManagement:
-    #protocol: "HTTPS"
-    #basePath: "/mocking/api/v1/links/5f7824da-87ef-4aaa-920e-0a3b8a0071a8/tenants/{tenantId}/onboardings"
-    #host: "anypoint.mulesoft.com"
-    #port: "443"
     protocol: "HTTP"
     basePath: "/api/tenants/{tenantId}/onboardings"
     host: "localhost"
