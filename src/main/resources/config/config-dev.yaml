@@ -133,4 +133,10 @@ api-call:
     customerProductsOnboarding: 
       generateDocsFromTemplate:
         maxRetries: "0"
-        millisBetweenRetries: "1000"          
+        millisBetweenRetries: "1000"
+  postValidateCustimerDigitalSignature:
+    affluentManagement:
+      validateSignature:
+        maxRetries: "0"
+        millisBetweenRetries: "1000"  
+                  

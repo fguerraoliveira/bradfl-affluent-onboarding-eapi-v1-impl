@@ -11,7 +11,7 @@
     <apikit:config name="affluent-onboarding-experience-api-config" api="resource::b9dee0f0-16c6-436a-af1d-4a36683e8af0:affluent-onboarding-experience-api:1.0.27:raml:zip:affluent-onboarding-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     
     <!-- ### CloudHub  ### --> 
-    <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="6a642e6a-7ef3-46cf-8134-d64e2910a5c2" flowRef="affluent-onboarding-experience-api-main" />
+<!--     <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="6a642e6a-7ef3-46cf-8134-d64e2910a5c2" flowRef="affluent-onboarding-experience-api-main" /> -->
     
     <!-- ### Secure properties ### -->
     <secure-properties:config name="secure-common-config" doc:name="Secure Properties Config" doc:id="aab33846-cbd3-4777-99af-106ba686279f" file="config/config-common.yaml" key="${encryption.key}" />
