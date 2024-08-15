@@ -18,6 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<api.groupId>b9dee0f0-16c6-436a-af1d-4a36683e8af0</api.groupId>
+		<app.runtime>4.6.5</app.runtime>
 	</properties>
 
 	<build>

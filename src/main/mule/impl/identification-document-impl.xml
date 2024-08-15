@@ -16,7 +16,7 @@ output multipart/form-data
 			"headers": {
 				"Content-Disposition": {
 					"name": "fileContent",
-					"fileName": "fileContent",
+					"fileName": vars.fileName,
 					"subtype": "form-data"
 				},
 				"Content-Type": "application/octet-stream"
@@ -65,7 +65,6 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<logger level="DEBUG" doc:name="Log Payload" doc:id="90e4d731-af0c-4f81-87e2-58b7b17d2fde" message="PAYLOAD: #[payload]"/>
 		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="b1059823-b3ff-4fdf-8ab7-1ec3e6a2d6ea" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
 		<ee:transform doc:name="httpStatus, response" doc:id="f714bf8c-5493-4e24-b5c4-e88d662f5e72" >
 			<ee:message >
