@@ -176,4 +176,66 @@ payload.httpResponse]]></ee:set-payload>
 			</ee:variables>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="post-validate-signature-impl-subflow" doc:id="30438c7c-94f4-4625-a46e-9460b9d0c689" >
+		<logger level="INFO" doc:name="Logger" doc:id="2912740e-a3a4-4323-9662-8141715f4d87" />
+		<ee:transform doc:name="payload, RequestConfig" doc:id="a61a426f-43c3-49fd-a85d-25c86bcaf688" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+vars.requestPayload]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="requestConfig" ><![CDATA[output application/java
+
+import HttpConfigSecurePropertyFlagMapType from com::bradescofl::modules::common::Definitions
+import createHttpConfig from com::bradescofl::modules::http::HttpClient
+
+var sourceOperationName = "postValidateCustimerDigitalSignature"
+var targetDeviceType = "processApi"
+var targetServiceName = "affluentManagement"
+var targetServiceOperationName = "validateSignature"
+
+var securePropertiesFlagmap: HttpConfigSecurePropertyFlagMapType = {}
+var additionalHeaders = {}
+var queryParams = {}
+var uriParams = {
+	tenantId: vars.tenantId,
+	id: vars.id
+}
+
+var propertyFetchingFun: (String) -> Any = Mule::p
+
+
+---
+
+createHttpConfig(
+	propertyFetchingFun,
+	sourceOperationName,
+	targetDeviceType,
+	targetServiceName,
+	targetServiceOperationName,
+	securePropertiesFlagmap,
+	additionalHeaders,
+	queryParams,
+	uriParams
+)]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="affluentManagementPapi-http-request" doc:id="0c7be1f4-2989-40e5-970d-f64e8d8502b2" name="affluentManagementPapi-http-request"/>
+		<ee:transform doc:name="httpStatus, response" doc:id="bb8ea2e2-49c0-4740-9e69-8c6bec0f726b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.httpResponse]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+payload.httpStatusCode]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</sub-flow>
 </mule>

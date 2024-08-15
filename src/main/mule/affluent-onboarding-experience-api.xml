@@ -98,22 +98,17 @@ payload.parts.fileContent.headers."Content-Disposition".filename]]></ee:set-vari
         <flow-ref doc:name="post-upload-identification-document-impl" doc:id="64534c52-cc9f-4447-a761-1eab31843822" name="post-upload-identification-document-impl" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.validate-signature:application\json:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="Transform Message">
+        <ee:transform doc:name="id, tenantId, requestPayload">
             <ee:variables>
-                <ee:set-variable variableName="tenantId">attributes.uriParams.'tenantId'</ee:set-variable>
-                <ee:set-variable variableName="id">attributes.uriParams.'id'</ee:set-variable>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+				<ee:set-variable variableName="requestPayload" ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-  status: "FINISHED_PROSPECT"
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+		<flow-ref doc:name="post-validate-signature-impl-subflow" doc:id="321f5cd9-f82f-4036-b090-a047cad107c9" name="post-validate-signature-impl-subflow"/>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="id, tenantId" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76">
