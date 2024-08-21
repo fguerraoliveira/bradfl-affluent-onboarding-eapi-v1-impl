@@ -74,6 +74,7 @@ var baseApiCall = 'api-call.postValidateOwnershipConfirmation.affluentManagement
 {
 	"otpValue": vars.originalPayload.otpValue,
 	"contactPointPhone": {
+	    "contactPointType": ["ContactPointPhone"],		
         "telephoneNumber": vars.originalPayload.phoneNumber,
         "areaCode": vars.originalPayload.phoneAreaCode,
         "phoneCountryCode": vars.originalPayload.phoneCountryCode
