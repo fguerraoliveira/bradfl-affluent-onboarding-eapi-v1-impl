@@ -11,7 +11,7 @@
             </http:error-response>
         </http:listener>
         <set-variable value="#[attributes.relativePath]" doc:name="relativePath" doc:id="7c7d57dd-cf47-4832-bfd4-c0050a496679" variableName="relativePath" />
-        <logger level="INFO" doc:name="Start" doc:id="8b864c08-5044-416c-92e3-08c053c78177" message="Starting #[vars.relativePath] / Body: #[payload]" />
+        <logger level="INFO" doc:name="Start" doc:id="8b864c08-5044-416c-92e3-08c053c78177" message="Starting #[vars.relativePath] / Body: #[if (attributes.headers.&quot;content-length&quot; == 0) null else payload]" />
         <apikit:router config-ref="affluent-onboarding-experience-api-config" />
         <logger level="INFO" doc:name="End" doc:id="c1bfadd5-9e90-41c7-9d25-53e0c7269e54" message="End of #[vars.relativePath] / Body: #[payload]" />
         <error-handler ref="error-handler_common" />
@@ -64,7 +64,7 @@
         </ee:transform>
         <flow-ref doc:name="post-ppe-screening-requests-impl-subflow" doc:id="0710ec25-0e59-4926-b958-81760167a928" name="post-ppe-screening-requests-impl-subflow" />
     </flow>
-    <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:application\json:affluent-onboarding-experience-api-config">
+    <flow name="post:\tenants\(tenantId)\onboardings\(id)\w8-forms:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="id, tenantId" doc:id="3869af1e-0a74-4d6b-a982-d78a9953a6d3">
             <ee:variables>
                 <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
@@ -102,20 +102,19 @@ payload.parts.fileContent.headers."Content-Disposition".filename]]></ee:set-vari
             <ee:variables>
                 <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
                 <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-				<ee:set-variable variableName="requestPayload" ><![CDATA[%dw 2.0
+                <ee:set-variable variableName="requestPayload"><![CDATA[%dw 2.0
 output application/java
 ---
 payload]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<flow-ref doc:name="post-validate-signature-impl-subflow" doc:id="321f5cd9-f82f-4036-b090-a047cad107c9" name="post-validate-signature-impl-subflow"/>
+        <flow-ref doc:name="post-validate-signature-impl-subflow" doc:id="321f5cd9-f82f-4036-b090-a047cad107c9" name="post-validate-signature-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\terms-and-contracts:application\json:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="id, tenantId" doc:id="60c65aac-3b53-404a-b8c8-a32f6aeeab76">
             <ee:variables>
                 <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
                 <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
-
             </ee:variables>
         </ee:transform>
         <flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />
@@ -198,12 +197,12 @@ output application/json
         </ee:transform>
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:affluent-onboarding-experience-api-config">
-		<ee:transform doc:name="ParamVars tenantId, id" doc:id="fd9296bd-d6b0-4b3e-a81d-6fe75f710c5a" >
-			<ee:variables >
-				<ee:set-variable variableName="tenantId" ><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
-				<ee:set-variable variableName="id" ><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-			</ee:variables>
-		</ee:transform>
-		<flow-ref doc:name="request-customer-digital-signature-subFlow" doc:id="4cf5e673-9fc0-42d0-84a9-6b0a515a2492" name="request-customer-digital-signature-subFlow" />
+        <ee:transform doc:name="ParamVars tenantId, id" doc:id="fd9296bd-d6b0-4b3e-a81d-6fe75f710c5a">
+            <ee:variables>
+                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="request-customer-digital-signature-subFlow" doc:id="4cf5e673-9fc0-42d0-84a9-6b0a515a2492" name="request-customer-digital-signature-subFlow" />
     </flow>
 </mule>
