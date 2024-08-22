@@ -1,15 +1,11 @@
 api:
   id: ""
-
-http:
-  host: "0.0.0.0"
-  port: "8081"
   
 processApi:
   customerProductsOnboarding:
     protocol: "HTTPS"
     basePath: "/api/tenants/{tenantId}/onboardings"
-    host: "REPLACE_ME"
+    host: "bradfl-cust-prod-onboarding-papi-v1-dev-boh1yn.as36o3.usa-e1.cloudhub.io"
     port: "443"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"
@@ -46,7 +42,7 @@ processApi:
   affluentManagement:
     protocol: "HTTPS"
     basePath: "/api/tenants/{tenantId}/onboardings"
-    host: "REPLACE_ME"
+    host: "bradfl-affluent-management-papi-v1-dev-boh1yn.as36o3.usa-e1.cloudhub.io"
     port: "443"
     connectionIdleTimeout: "180000"
     connectionTimeout: "10000"

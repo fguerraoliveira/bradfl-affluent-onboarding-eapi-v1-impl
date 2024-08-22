@@ -14,8 +14,9 @@
 <!--     <api-gateway:autodiscovery apiId="${api.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="6a642e6a-7ef3-46cf-8134-d64e2910a5c2" flowRef="affluent-onboarding-experience-api-main" /> -->
     
     <!-- ### Secure properties ### -->
+    <secure-properties:config name="secure-env-config" doc:name="Secure Properties Config" doc:id="e8d736ce-ed80-4229-8b04-911cceac1a06" file="config/config-${mule.env}.yaml" key="${encryption.key}" />
     <secure-properties:config name="secure-common-config" doc:name="Secure Properties Config" doc:id="aab33846-cbd3-4777-99af-106ba686279f" file="config/config-common.yaml" key="${encryption.key}" />
-    <secure-properties:config name="secure-env-config" doc:name="Secure Properties Config" doc:id="a9bf9fef-867f-461a-a2f9-a0242ceefb81" file="config/config-${mule.env}.yaml" key="${encryption.key}" />
+    
     
     <!-- ### Common Regular properties ### -->
     <configuration-properties doc:name="common-config" doc:id="b5457b3c-f659-4d1e-972b-38ec2e0effa7" file="config/config-common.yaml" />

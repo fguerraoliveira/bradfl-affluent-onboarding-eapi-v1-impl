@@ -1,10 +1,6 @@
 api:
   id: ""
 
-http:
-  host: "0.0.0.0"
-  port: "8081"
-  
 processApi:
   customerProductsOnboarding:
     protocol: "HTTPS"
