@@ -120,81 +120,28 @@ payload]]></ee:set-variable>
         <flow-ref doc:name="post-terms-and-contracts-impl-subflow" doc:id="54f22081-5e62-4147-94a5-1015d86b57cf" name="post-terms-and-contracts-impl-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.upload-proof-of-address:multipart\form-data:affluent-onboarding-experience-api-config">
-        <ee:transform doc:name="id, tenantId, fileContent" doc:id="300a4488-94cb-43b5-8e14-b5a5028b754a">
-            <ee:variables>
-                <ee:set-variable variableName="id"><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
-                <ee:set-variable variableName="tenantId"><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
-                <ee:set-variable variableName="fileContent"><![CDATA[%dw 2.0
+		<ee:transform doc:name="ParamVars tenantId, id" doc:id="684c3987-b4d5-43c6-9ef7-4da6a05a3858" >
+			<ee:variables >
+				<ee:set-variable variableName="tenantId" ><![CDATA[attributes.uriParams.'tenantId']]></ee:set-variable>
+				<ee:set-variable variableName="id" ><![CDATA[attributes.uriParams.'id']]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="BodyVars" doc:id="c72b06b2-c6d7-470e-a566-f7d3803a32da" >
+			<ee:message />
+			<ee:variables >
+				<ee:set-variable variableName="fileContent" ><![CDATA[%dw 2.0
 
 output application/octet-stream
 ---
 payload.parts.fileContent.content]]></ee:set-variable>
-            </ee:variables>
-        </ee:transform>
-        <flow-ref doc:name="post-upload-proof-of-address-subflow" doc:id="e46a8f36-2b8e-4672-be1b-6dea5bb27377" name="post-upload-proof-of-address-subflow" />
-        <ee:transform doc:name="Transform Message">
-            <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
-output application/json
+				<ee:set-variable variableName="fileName" ><![CDATA[%dw 2.0
+
+output text
 ---
-{
-  id: null,
-  name: "Template",
-  description: "Generic document template",
-  documentStatus: "CURRENT",
-  documentType: "Document",
-  signatureStatus: "SIGNED",
-  customProperties: [
-    {
-      propertyName: "globalDocumentId",
-      propertyValue: "af3d5c80-f237-11ec-9d38-02b65bc9fbca"
-    }
-  ],
-  externalIds: [
-    {
-      id: null,
-      externalId: "75cff69a-a891-4e12-b00c-bdb3948e19f5",
-      externalIdType: [
-        "DOCUSIGN"
-      ],
-      status: "VALID",
-      statusLastChangedDate: "2022-06-02T16:17:37.000Z"
-    }
-  ],
-  auditInfo: {
-    createdBy: "leads-prc-api",
-    createdDate: "2022-06-06T14:52:38.3030000Z",
-    updatedBy: "leads-prc-api",
-    updatedDate: "2022-06-06T14:52:38.3030000Z",
-    isDeleted: false
-  },
-  partyAgreementStatus: "partyAgreementStatus",
-  providerValidationStatus: "providerValidationStatus",
-  validationProvider: "KYC provider",
-  extProviderValidationRequestId: "id",
-  extProviderValidationStatus: "extProviderValidationStatus",
-  party: {
-    id: null,
-    partyType: "Party"
-  },
-  partyIdentification: {
-    id: null,
-    name: "name",
-    identificationNumber: "12344632100",
-    partyIdentificationType: "Type"
-  },
-  "type": {
-    id: "kjhgfxdcv-87654rtdfgh-jhgjfhv",
-    code: "CODE",
-    requirePartyAgreement: false,
-    requireProviderValidation: false,
-    validationProvider: "PROVIDER",
-    templateUrl: "https://www.example.com/bucket/template.pdf",
-    templateTransformationScript: "script"
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-            </ee:message>
-        </ee:transform>
+payload.parts.fileContent.headers."Content-Disposition".filename]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="post-upload-identification-document-impl" doc:id="b2f53f86-92e9-420a-b1a3-bb3195c00f49" name="post-upload-proof-of-address-subflow" />
     </flow>
     <flow name="post:\tenants\(tenantId)\onboardings\(id)\.request-signature:affluent-onboarding-experience-api-config">
         <ee:transform doc:name="ParamVars tenantId, id" doc:id="fd9296bd-d6b0-4b3e-a81d-6fe75f710c5a">

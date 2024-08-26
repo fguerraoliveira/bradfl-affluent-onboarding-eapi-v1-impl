@@ -79,7 +79,7 @@ payload.httpResponse]]></ee:set-payload>
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="post-upload-proof-of-address-subflow" doc:id="659fbeca-7b62-4adf-a734-adffb35497a3" >
-		<ee:transform doc:name="Request Config" doc:id="c8fd0093-6cde-4d15-8ca5-1d8a1f9ccfb3" >
+		<ee:transform doc:name="Request Config" doc:id="6a9ce6d7-b391-48b7-be74-109b0a0f957e" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output multipart/form-data
@@ -90,7 +90,7 @@ output multipart/form-data
 			"headers": {
 				"Content-Disposition": {
 					"name": "fileContent",
-					"fileName": "fileContent",
+					"fileName": vars.fileName,
 					"subtype": "form-data"
 				},
 				"Content-Type": "application/octet-stream"
@@ -105,9 +105,9 @@ output multipart/form-data
 				},
 				"Content-Type": "text/plain"
 			},
-			"content": "PROOF_OF_ADDRESS"		
+			"content": "PROOF_OF_ADDRESS"
 		}
-}
+	}
 }]]></ee:set-payload>
 			</ee:message>
 			<ee:variables >
@@ -139,15 +139,8 @@ var clientSecretHeaderName = serviceProperty(baseExternalService,'auth.clientSec
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<try doc:name="Try" doc:id="009a92a3-9a38-4bb1-9105-117390dbed8e" >
-			<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="2df89fc1-cf50-42b7-a381-551458561fdb" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
-			<error-handler>
-				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="550562cf-0e1a-49a3-b722-d3e0b92af0a7" type="CPO:INTERNAL_SERVER_ERROR">
-					<raise-error doc:name="Raise error" doc:id="7f2eb383-4e08-4dc6-b9b6-f67257ee1662" type="CPO:INTERNAL_SERVER_ERROR" description="An error occurred while uploading the document"/>
-				</on-error-propagate>
-			</error-handler>
-		</try>
-		<ee:transform doc:name="httpStatus, response" doc:id="0e7ccbac-9201-4227-9532-1e65e847dbc2" >
+		<flow-ref doc:name="customerProductsOnboardingPapi-http-request-multipart-form-data" doc:id="559504bd-1c93-4646-be0c-6d02d4af060f" name="customerProductsOnboardingPapi-http-request-multipart-form-data" />
+		<ee:transform doc:name="httpStatus, response" doc:id="414e6386-d661-463e-9d74-f1806e6f24d9" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json skipNullOn="everywhere"

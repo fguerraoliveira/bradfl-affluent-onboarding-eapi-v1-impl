@@ -108,6 +108,7 @@ output application/java
 					</ee:transform>
 					<error-handler >
 						<on-error-continue enableNotifications="true" logException="false" doc:name="On Error Continue" doc:id="db72fdbe-545d-4681-89d2-f01ee737e159" type="ANY" >
+							<logger level="DEBUG" doc:name="Logger" doc:id="4e5f8fee-dfe2-4cc3-9fb5-f42cd4f6b210" message="Error while calling external service. Error message: #[output json --- error.errorMessage]"/>
 							<choice doc:name="Choice" doc:id="e3d46660-40df-4184-a2a1-0956d694ff85" >
 								<when expression="#[!isEmpty(error.errorMessage.attributes.statusCode) and (Mule::p('processApi.customerProductsOnboarding.notTransientErrorCodes') contains error.errorMessage.attributes.statusCode)]" >
 									<logger level="ERROR" doc:name="Logger" doc:id="a2fc4bf7-431e-491d-9a14-beee4ed1aa33" message="Failed to request external service. Will not retry. Error: #[error]" />
